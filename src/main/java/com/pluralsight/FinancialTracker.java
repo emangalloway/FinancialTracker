@@ -1,5 +1,7 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -52,6 +54,23 @@ public class FinancialTracker {
     }
 
     public static void loadTransactions(String fileName) {
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        String line;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            while ((line = bufferedReader.readLine())!= null){
+                String[] parts = line.split("\\|");
+                String date = parts[0];
+                String time = parts[1];
+                String description = parts[2];
+                String vendor = parts[3];
+                double amount = Double.parseDouble(parts[4]);
+                Transaction transaction = new Transaction(date,time,description,vendor,amount);
+                transactions.add(transaction);
+            }
+        }catch (Exception e){
+            System.out.println("An error has occurred");
+        }
         // This method should load transactions from a file with the given file name.
         // If the file does not exist, it should be created.
         // The transactions should be stored in the `transactions` ArrayList.
@@ -60,9 +79,22 @@ public class FinancialTracker {
         // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
+
     }
 
-    private static void addDeposit(Scanner scanner) {
+    private static void addDeposit(ArrayList<Transaction> transactions) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter Date: ");
+        String date = input.nextLine();
+        System.out.println("Enter time: ");
+        String time = input.nextLine();
+        System.out.println("Enter Item: ");
+        String item = input.nextLine();
+        System.out.println("Enter Vendor: ");
+        String vendor = input.nextLine();
+        System.out.println("Enter Amount: ");
+        double amountOfDeposit = input.nextDouble();
+        transactions.add(new Transaction(date,time,item,vendor,amountOfDeposit));
         // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
@@ -185,4 +217,4 @@ public class FinancialTracker {
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
     }
 }
- 
+
