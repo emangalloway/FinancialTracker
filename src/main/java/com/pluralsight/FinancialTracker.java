@@ -1,10 +1,14 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class FinancialTracker {
@@ -82,7 +86,32 @@ public class FinancialTracker {
 
     }
 
-    private static void addDeposit(ArrayList<Transaction> transactions) {
+    private static void addDeposit(Scanner scanner) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("transactions.csv"));
+
+        }catch (Exception e){
+            System.out.println("AN error has occurred");
+        }
+        System.out.println("Enter Date: ");
+        String date = scanner.nextLine();
+        System.out.println("Enter time: ");
+        String time = scanner.nextLine();
+        System.out.println("Enter Item: ");
+        String item = scanner.nextLine();
+        System.out.println("Enter Vendor: ");
+        String vendor = scanner.nextLine();
+        System.out.println("Enter Amount: ");
+        double amountOfDeposit = scanner.nextDouble();
+        transactions.add(new Transaction(date,time,item,vendor,amountOfDeposit));
+        // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
+        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
+        // The amount should be a positive number.
+        // After validating the input, a new `Transaction` object should be created with the entered values.
+        // The new deposit should be added to the `transactions` ArrayList.
+    }
+
+    private static void addPayment(Scanner scanner) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Date: ");
         String date = input.nextLine();
@@ -95,14 +124,6 @@ public class FinancialTracker {
         System.out.println("Enter Amount: ");
         double amountOfDeposit = input.nextDouble();
         transactions.add(new Transaction(date,time,item,vendor,amountOfDeposit));
-        // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount should be a positive number.
-        // After validating the input, a new `Transaction` object should be created with the entered values.
-        // The new deposit should be added to the `transactions` ArrayList.
-    }
-
-    private static void addPayment(Scanner scanner) {
         // This method should prompt the user to enter the date, time, description, vendor, and amount of a payment.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount received should be a positive number then transformed to a negative number.
