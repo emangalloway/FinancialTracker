@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,20 +59,19 @@ public class FinancialTracker {
     }
 
     public static void loadTransactions(String fileName) {
-        ArrayList<Transaction> transactions = new ArrayList<>();
         String line;
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("transactions.csv"));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
             while ((line = bufferedReader.readLine())!= null){
                 String[] parts = line.split("\\|");
-                String date = parts[0];
-                String time = parts[1];
+                LocalDate date = LocalDate.parse(parts[0]);
+                LocalTime time = LocalTime.parse(parts[1]);
                 String description = parts[2];
                 String vendor = parts[3];
                 double amount = Double.parseDouble(parts[4]);
                 Transaction transaction = new Transaction(date,time,description,vendor,amount);
                 transactions.add(transaction);
-            }
+            }bufferedReader.close();
         }catch (Exception e){
             System.out.println("An error has occurred");
         }
@@ -87,23 +87,48 @@ public class FinancialTracker {
     }
 
     private static void addDeposit(Scanner scanner) {
+        //Create buffered writer
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("transactions.csv"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
+            //Asking user to fill in information about deposit
+            System.out.println("Enter Date: ");
+            String date = scanner.nextLine();
+            LocalDate dateInput = LocalDate.parse(date, DATE_FORMATTER);//Auto changes user date input to yyyy-MM-dd format
+            System.out.println("Enter time: ");
+            String time = scanner.nextLine();
+            LocalTime timeInput = LocalTime.parse(time, TIME_FORMATTER);//Auto changes user time input to HH:mm:ss format
+            System.out.println("Enter Description: ");
+            String description = scanner.nextLine();
+            System.out.println("Enter Vendor: ");
+            String vendor = scanner.nextLine();
+            System.out.println("Enter Amount: ");
+            double amountOfDeposit = scanner.nextDouble();
+            scanner.nextLine();//Consume
+
+            //Create a loop to make sure amount is greater than zero
+            amountOfDeposit = -1;
+            while (amountOfDeposit <= 0){
+                System.out.println("Enter amount: ");
+                amountOfDeposit = scanner.nextDouble();
+
+                if (amountOfDeposit <= 0 ){
+                    System.out.println("Amount must be greater than zero, please try again ");
+                }
+            }
+
+            //Create new transaction and add it to list
+            Transaction transaction = new Transaction(dateInput,timeInput,description,vendor,amountOfDeposit);
+            transactions.add(transaction);
+
+            //Append to file
+            for (Transaction transaction1 : transactions) {
+                bufferedWriter.write(transaction1.toString());
+                bufferedWriter.newLine();
+            }
         }catch (Exception e){
-            System.out.println("AN error has occurred");
+            System.out.println("An error has occurred");
         }
-        System.out.println("Enter Date: ");
-        String date = scanner.nextLine();
-        System.out.println("Enter time: ");
-        String time = scanner.nextLine();
-        System.out.println("Enter Item: ");
-        String item = scanner.nextLine();
-        System.out.println("Enter Vendor: ");
-        String vendor = scanner.nextLine();
-        System.out.println("Enter Amount: ");
-        double amountOfDeposit = scanner.nextDouble();
-        transactions.add(new Transaction(date,time,item,vendor,amountOfDeposit));
         // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
         // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
         // The amount should be a positive number.
@@ -112,23 +137,36 @@ public class FinancialTracker {
     }
 
     private static void addPayment(Scanner scanner) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter Date: ");
-        String date = input.nextLine();
-        System.out.println("Enter time: ");
-        String time = input.nextLine();
-        System.out.println("Enter Item: ");
-        String item = input.nextLine();
-        System.out.println("Enter Vendor: ");
-        String vendor = input.nextLine();
-        System.out.println("Enter Amount: ");
-        double amountOfDeposit = input.nextDouble();
-        transactions.add(new Transaction(date,time,item,vendor,amountOfDeposit));
-        // This method should prompt the user to enter the date, time, description, vendor, and amount of a payment.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount received should be a positive number then transformed to a negative number.
-        // After validating the input, a new `Transaction` object should be created with the entered values.
-        // The new payment should be added to the `transactions` ArrayList.
+        //Create buffered writer
+        try {
+
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME true));
+
+            //Asking user to input information about transaction
+
+            System.out.println("Enter Date: ");
+            String date = scanner.nextLine();
+            LocalDate dateInput = LocalDate.parse(date, DATE_FORMATTER);//Auto format user date to yyyy-MM-dd
+            System.out.println("Enter time: ");
+            String time = scanner.nextLine();
+            LocalTime timeInput = LocalTime.parse(time, TIME_FORMATTER);//Auto format user time to HH:mm:ss
+            System.out.println("Enter Item: ");
+            String item = scanner.nextLine();
+            System.out.println("Enter Vendor: ");
+            String vendor = scanner.nextLine();
+            System.out.println("Enter Amount: ");
+            double amountOfDeposit = scanner.nextDouble();
+            transactions.add(new Transaction(dateInput, timeInput, item, vendor, amountOfDeposit));
+
+            for (amountOfDeposit)
+            // This method should prompt the user to enter the date, time, description, vendor, and amount of a payment.
+            // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
+            // The amount received should be a positive number then transformed to a negative number.
+            // After validating the input, a new `Transaction` object should be created with the entered values.
+            // The new payment should be added to the `transactions` ArrayList.
+        }catch (Exception e){
+            System.out.println("An error has occurred");
+        }
     }
 
     private static void ledgerMenu(Scanner scanner) {
@@ -167,6 +205,7 @@ public class FinancialTracker {
     }
 
     private static void displayLedger() {
+
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
     }
@@ -177,6 +216,7 @@ public class FinancialTracker {
     }
 
     private static void displayPayments() {
+
         // This method should display a table of all payments in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
     }
