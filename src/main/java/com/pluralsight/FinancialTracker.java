@@ -111,6 +111,7 @@ public class FinancialTracker {
             while (amountOfDeposit <= 0){
                 System.out.println("Enter amount: ");
                 amountOfDeposit = scanner.nextDouble();
+                scanner.nextLine();
 
                 if (amountOfDeposit <= 0 ){
                     System.out.println("Amount must be greater than zero, please try again ");
@@ -122,10 +123,10 @@ public class FinancialTracker {
             transactions.add(transaction);
 
             //Append to file
-            for (Transaction transaction1 : transactions) {
-                bufferedWriter.write(transaction1.toString());
+
+                bufferedWriter.write(transaction.toString());
                 bufferedWriter.newLine();
-            }
+                bufferedWriter.close();
         }catch (Exception e){
             System.out.println("An error has occurred");
         }
@@ -140,10 +141,9 @@ public class FinancialTracker {
         //Create buffered writer
         try {
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME true));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FILE_NAME, true));
 
             //Asking user to input information about transaction
-
             System.out.println("Enter Date: ");
             String date = scanner.nextLine();
             LocalDate dateInput = LocalDate.parse(date, DATE_FORMATTER);//Auto format user date to yyyy-MM-dd
@@ -156,9 +156,15 @@ public class FinancialTracker {
             String vendor = scanner.nextLine();
             System.out.println("Enter Amount: ");
             double amountOfDeposit = scanner.nextDouble();
-            transactions.add(new Transaction(dateInput, timeInput, item, vendor, amountOfDeposit));
+            Transaction transaction = new Transaction(dateInput, timeInput, item,vendor, amountOfDeposit);
+            transactions.add(transaction);
 
-            for (amountOfDeposit)
+            //Append to file
+            for (Transaction transaction1 : transactions) {
+                bufferedWriter.write(transaction1.toString());
+                bufferedWriter.newLine();
+
+            }
             // This method should prompt the user to enter the date, time, description, vendor, and amount of a payment.
             // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
             // The amount received should be a positive number then transformed to a negative number.
@@ -205,7 +211,11 @@ public class FinancialTracker {
     }
 
     private static void displayLedger() {
+        for (Transaction transaction : transactions) {
+            System.out.println(" ");
+            System.out.println(transaction);
 
+        }
         // This method should display a table of all transactions in the `transactions` ArrayList.
         // The table should have columns for date, time, description, vendor, and amount.
     }

@@ -60,6 +60,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction Date: " + date +", Time: " + time +", Description: " + description +", Vendor: " + vendor +", Amount: $" + amount;
+        return date +"|" + time +"|" + description +"|" + vendor +"|$" + amount;
     }
 }
