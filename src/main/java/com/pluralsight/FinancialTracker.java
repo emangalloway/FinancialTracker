@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import javax.sound.midi.Soundbank;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -57,7 +58,6 @@ public class FinancialTracker {
 
         scanner.close();
     }
-
     public static void loadTransactions(String fileName) {
         String line;
         try {
@@ -83,9 +83,7 @@ public class FinancialTracker {
         // For example: 2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
-
     }
-
     private static void addDeposit(Scanner scanner) {
         //Create buffered writer
         try {
@@ -203,11 +201,10 @@ public class FinancialTracker {
         for (Transaction transaction : transactions) {
             System.out.println(" ");
             System.out.println(transaction);
-
         }
-        // This method should display a table of all transactions in the `transactions` ArrayList.
-        // The table should have columns for date, time, description, vendor, and amount.
     }
+    // This method should display a table of all transactions in the `transactions` ArrayList.
+    // The table should have columns for date, time, description, vendor, and amount.
 
     private static void displayDeposits() {
         for (Transaction transaction : transactions) {
@@ -216,8 +213,8 @@ public class FinancialTracker {
                 System.out.println(transaction);
         }
     }
-        // This method should display a table of all deposits in the `transactions` ArrayList.
-        // The table should have columns for date, time, description, vendor, and amount.
+    // This method should display a table of all deposits in the `transactions` ArrayList.
+    // The table should have columns for date, time, description, vendor, and amount.
 
     private static void displayPayments() {
         for (Transaction transaction : transactions) {
@@ -226,10 +223,8 @@ public class FinancialTracker {
             System.out.println(transaction);
         }
     }
-
-
-        // This method should display a table of all payments in the `transactions` ArrayList.
-        // The table should have columns for date, time, description, vendor, and amount.
+    // This method should display a table of all payments in the `transactions` ArrayList.
+    // The table should have columns for date, time, description, vendor, and amount.
 
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
@@ -247,21 +242,29 @@ public class FinancialTracker {
 
             switch (input) {
                 case "1":
+                    displayMonthToDate();
                     // Generate a report for all transactions within the current month,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    break;
                 case "2":
+                    displayPreviousMonth();
                     // Generate a report for all transactions within the previous month,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    break;
                 case "3":
+                    displayYearToDate();
                     // Generate a report for all transactions within the current year,
                     // including the date, time, description, vendor, and amount for each transaction.
-
+                    break;
                 case "4":
+                    displayPreviousYear();
                     // Generate a report for all transactions within the previous year,
                     // including the date, time, description, vendor, and amount for each transaction.
+                    break;
                 case "5":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, time, description, vendor, and amount for each transaction.
+                    break;
                 case "0":
                     running = false;
                 default:
@@ -271,8 +274,53 @@ public class FinancialTracker {
         }
     }
 
+    private static void displayMonthToDate(){
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+        for (Transaction transaction : transactions) {
+            LocalDate transactionDate = transaction.getDate();
+            if (transactionDate.isAfter(firstDayOfMonth)){
+                System.out.println(transaction);
+            }
+        }
+    }
+    private static void displayPreviousMonth(){
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfPreviousMonth = today.minusMonths(1).withDayOfMonth(1);
+        LocalDate lastDayOfPreviousMonth = today.withDayOfMonth(1).minusDays(1);
+        for (Transaction transaction : transactions) {
+            LocalDate transactionDate = transaction.getDate();
+            if (transactionDate.isBefore(lastDayOfPreviousMonth) && transactionDate.isAfter(firstDayOfPreviousMonth)){
+                System.out.println(transaction);
+            }
 
+        }
+
+    }
+    private static void displayYearToDate(){
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfYear = today.withDayOfYear(1);
+        for (Transaction transaction : transactions) {
+            LocalDate transactionDate = transaction.getDate();
+            if (transactionDate.isAfter(firstDayOfYear)){
+                System.out.println(transaction);
+            }
+        }
+    }
+    private static void displayPreviousYear(){
+        LocalDate today = LocalDate.now();
+        LocalDate firstDayOfYear = today.withDayOfYear(1);
+        LocalDate firstDayOfPreviousYear = today.minusYears(1).withDayOfYear(1);
+        for (Transaction transaction : transactions) {
+            LocalDate transactionDate = transaction.getDate();
+            if (transactionDate.isAfter(firstDayOfPreviousYear) && transactionDate.isBefore(firstDayOfYear)){
+                System.out.println(transaction);
+            }
+
+        }
+    }
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
+
         // This method filters the transactions by date and prints a report to the console.
         // It takes two parameters: startDate and endDate, which represent the range of dates to filter by.
         // The method loops through the transactions list and checks each transaction's date against the date range.
