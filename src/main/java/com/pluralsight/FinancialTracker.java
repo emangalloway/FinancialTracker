@@ -330,7 +330,7 @@ public class FinancialTracker {
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
         for (Transaction transaction : transactions) {
             if (!transaction.getDate().isBefore(startDate) && !transaction.getDate().isAfter(endDate)) {
-                System.out.println(transaction);//Month to date
+                System.out.println(transaction);//Search by date
             }
 
             // This method filters the transactions by date and prints a report to the console.
