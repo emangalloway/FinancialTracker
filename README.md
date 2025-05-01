@@ -49,7 +49,9 @@ List resources such as tutorials, articles, or documentation that helped you dur
 
 - https://ezgif.com/video-to-gif
 - https://www.geeksforgeeks.org/date-class-java-examples/
-- 
+- Workbook 3 - 1 - Mastering Java Fundamentals v2.2Y
+- Workbook 3 - 3 - GitHub and Repository Management v6.1Y
+- https://github.com/RayMaroun/yearup-spring-section-10-2025/blob/master/pluralsight/java-development/workbook-3/
 
 
 ## Thanks
