@@ -263,8 +263,8 @@ public class FinancialTracker {
                     // including the date, time, description, vendor, and amount for each transaction.
                     break;
                 case "4":
-                    /*LocalDate PreviousYear = LocalDate.now().minusYears(1);
-                    filterTransactionsByDate(PreviousYear, LocalDate.now());*/
+                    LocalDate PreviousYear = LocalDate.now().minusYears(1);
+                    filterTransactionsByDate(PreviousYear, LocalDate.now());
                     // Generate a report for all transactions within the previous year,
                     // including the date, time, description, vendor, and amount for each transaction.
                     break;
