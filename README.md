@@ -1,20 +1,20 @@
 # Project Title
 
 ## Description of the Project
-
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
-
+This project allows user to see transactions, create payments, and deposits. It also has a feature to where the user can search transactions and filter search to receive certain transactions.
 
 ## User Stories
-
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
-
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+- As a user, I want to be able to add a deposit, so that I can use funds to make payments.
+- As a user, I want to be able to add a payment, so that I can make purchases.
+- As a user, I want to be able to view my account statement, so I can keep track of funds.
+- As a user, I want to be able to search my account using date, so I can see when funds were added or taken from my account.
+- As a user, I want to be able to search my account using description, so that I can see what was the transaction for.
+- As a user, I want to be able to search through transactions using vendor, so that I can see who gave or received funds to my account.
+- As a user, I want to be able to search through transactions using amount, so that I can see how much money was added or withdrawn from my account.
 
 ## Setup
 
-Instructions on how to set up and run the project using IntelliJ IDEA.
+To run this console Application click the green play button that is next to main class
 
 ### Prerequisites
 
@@ -33,8 +33,8 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Technologies Used
 
-- Java: Mention the version you are using.
-- Any additional libraries or frameworks used in the project.
+- Java: 17.
+- GitHub projects for creating and finishing tickets.
 
 ## Demo
 

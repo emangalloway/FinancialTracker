@@ -108,12 +108,12 @@ public class FinancialTracker {
             double amountOfDeposit = scanner.nextDouble();
             scanner.nextLine();//Consume
 
-            //Create new transaction and add it to list
+            //Creation of new transaction and add it to list of transactions
             Transaction transaction = new Transaction(dateInput, timeInput, description, vendor, amountOfDeposit);
             System.out.println("Successful deposit: " + transaction);
             transactions.add(transaction);
 
-            //Append to file
+            //Below is how you append transaction that you create to the file
 
             bufferedWriter.write(transaction.toString());
             bufferedWriter.newLine();
@@ -121,11 +121,6 @@ public class FinancialTracker {
         } catch (Exception e) {
             System.out.println("An error has occurred");
         }
-        // This method should prompt the user to enter the date, time, description, vendor, and amount of a deposit.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount should be a positive number.
-        // After validating the input, a new `Transaction` object should be created with the entered values.
-        // The new deposit should be added to the `transactions` ArrayList.
     }
 
     private static void addPayment(Scanner scanner) {
@@ -157,7 +152,7 @@ public class FinancialTracker {
             System.out.println("Successful payment: " + transaction);
             transactions.add(transaction);
 
-            //Append to file
+            //Below is code for how the transaction created will append to file
             bufferedWriter.write(transaction.toString());
             bufferedWriter.newLine();
             bufferedWriter.close();
@@ -200,16 +195,14 @@ public class FinancialTracker {
             }
         }
     }
-
+    //This is the method that will be used in the menu to display all the transactions
     private static void displayLedger() {
         for (Transaction transaction : transactions) {
             System.out.println(" ");
             System.out.println(transaction);
         }
     }
-    // This method should display a table of all transactions in the `transactions` ArrayList.
-    // The table should have columns for date, time, description, vendor, and amount.
-
+    //This is the method that allows user to only see deposits
     private static void displayDeposits() {
         for (Transaction transaction : transactions) {
             System.out.println(" ");
@@ -217,9 +210,7 @@ public class FinancialTracker {
                 System.out.println(transaction);
         }
     }
-    // This method should display a table of all deposits in the `transactions` ArrayList.
-    // The table should have columns for date, time, description, vendor, and amount.
-
+    //This is the method that allows user to only see payments transaction in their account
     private static void displayPayments() {
         for (Transaction transaction : transactions) {
             System.out.println(" ");
@@ -227,9 +218,7 @@ public class FinancialTracker {
                 System.out.println(transaction);
         }
     }
-    // This method should display a table of all payments in the `transactions` ArrayList.
-    // The table should have columns for date, time, description, vendor, and amount.
-
+    //This is the structure for the reports menu that allow user to see transaction within a specific time or search through the transactions via vendor
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -301,7 +290,7 @@ public class FinancialTracker {
             }
 
         }
-        //This is muy attempt at creating a custom search method
+        //This is my attempt at creating a custom search method
         private static void customSearch(ArrayList<Transaction> transactions,Scanner scanner){
 
             try {
@@ -324,7 +313,6 @@ public class FinancialTracker {
                 scanner.nextLine();
 
                 //Create a for each statement that checks what user is searching by and print appropriate transactions
-
                 for (Transaction transaction : transactions) {
                     boolean found = true;
                     if (!transaction.getDate().isBefore(startDate)&& !transaction.getDate().isAfter(endDate)){
