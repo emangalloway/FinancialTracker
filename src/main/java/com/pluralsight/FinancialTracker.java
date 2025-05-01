@@ -278,7 +278,7 @@ public class FinancialTracker {
                     // with that vendor, including the date, time, description, vendor, and amount for each transaction.
                     break;
                 case "6":
-                    
+                    customSearch(transactions,scanner);
                 case "0":
                     running = false;
                 default:
@@ -355,38 +355,52 @@ public class FinancialTracker {
             // Transactions with a matching vendor name are printed to the console.
             // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
         }
-        private static void customSearch(Scanner scanner){
-            //Prompt user would the would like to search by
-            System.out.println("Enter start date(yyyy-MM-dd): ");
-            String start = scanner.nextLine();
-            LocalDate startDate = LocalDate.parse(start, DATE_FORMATTER);
-            System.out.println("Enter end date(yyyy-MM-dd): ");
-            String end = scanner.nextLine();
-            LocalDate endDate = LocalDate.parse(end, DATE_FORMATTER);
-            System.out.println("Enter description, if you would like to search by description: ");
-            String descriptionInput = scanner.nextLine();
-            System.out.println("Enter vendor, if you would like to search by vendor: ");
-            String vendorInput = scanner.nextLine();
-            scanner.nextLine();//consume space
-            System.out.println("Enter amount, if you would like to search by amount: ");
-            double amountInput = scanner.nextDouble();
+        private static void customSearch(ArrayList<Transaction> transactions,Scanner scanner){
 
-            //Create a for each statement that checks what user is searching by and print appropriate transactions
-            for (Transaction transaction : transactions) {
-                if (!transaction.getDate().isBefore(startDate)&& !transaction.getDate().isAfter(endDate)){
-                    System.out.println("Transactions within date entered are "+transaction);
-                } else if (transaction.getDescription().equalsIgnoreCase(descriptionInput)) {
-                    System.out.println("Transactions matching your description are "+transaction);
-                } else if (transaction.getVendor().equalsIgnoreCase(vendorInput)) {
-                    System.out.println("Transactions matching your vendor are "+transaction);
-                } else if (transaction.getAmount()==amountInput) {
-                    System.out.println("Transactions equaling amount entered"+transaction);
-                } else{
-                    System.out.println("No transactions found");
-                }
+            try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME));
+                //Create a scanner to receive user input
+                //Prompt user would the would like to search by
+                System.out.println("Enter start date(yyyy-MM-dd): ");
+                String start = scanner.nextLine();
+                LocalDate startDate = LocalDate.parse(start, DATE_FORMATTER);
+                System.out.println("Enter end date(yyyy-MM-dd): ");
+                String end = scanner.nextLine();
+                LocalDate endDate = LocalDate.parse(end, DATE_FORMATTER);
+                System.out.println("Enter description, if you would like to search by description: ");
+                String descriptionInput = scanner.nextLine();
+                System.out.println("Enter vendor, if you would like to search by vendor: ");
+                String vendorInput = scanner.nextLine();
+                System.out.println("Enter amount, if you would like to search by amount: ");
+                String amount = scanner.nextLine();
+                double amountInput = Double.parseDouble(amount);
+                scanner.nextLine();
 
+                //Create a for each statement that checks what user is searching by and print appropriate transactions
+
+                for (Transaction transaction : transactions) {
+                    boolean found = true;
+                    if (!transaction.getDate().isBefore(startDate)&& !transaction.getDate().isAfter(endDate)){
+                        System.out.println("Your dates have been saved.");
+                    }
+                    if (!transaction.getDescription().equalsIgnoreCase(descriptionInput)&& !descriptionInput.isEmpty()) {
+                        found = false;
+                    }
+                    if (!transaction.getVendor().equalsIgnoreCase(vendorInput)&& !vendorInput.isEmpty()) {
+                        found = false;
+                    }
+                    if (transaction.getAmount() != amountInput && amountInput.isEmpty) {
+                        found = false;
+                    }
+                    if (found){
+                        System.out.println("Transactions matching your search: "+transaction);
+                    }
+
+                }bufferedReader.close();
+            } catch (Exception e) {
+                System.out.println("An error has occurred");
             }
-            
+
 
         }
 
