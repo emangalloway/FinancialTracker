@@ -239,6 +239,7 @@ public class FinancialTracker {
             System.out.println("3) Year To Date");
             System.out.println("4) Previous Year");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
             System.out.println("0) Back");
 
             String input = scanner.nextLine().trim();
@@ -276,6 +277,8 @@ public class FinancialTracker {
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, time, description, vendor, and amount for each transaction.
                     break;
+                case "6":
+                    
                 case "0":
                     running = false;
                 default:
@@ -332,7 +335,6 @@ public class FinancialTracker {
             if (!transaction.getDate().isBefore(startDate) && !transaction.getDate().isAfter(endDate)) {
                 System.out.println(transaction);//Search by date
             }
-
             // This method filters the transactions by date and prints a report to the console.
             // It takes two parameters: startDate and endDate, which represent the range of dates to filter by.
             // The method loops through the transactions list and checks each transaction's date against the date range.
@@ -347,12 +349,37 @@ public class FinancialTracker {
                     System.out.println(transaction);
                 }
             }
-
             // This method filters the transactions by vendor and prints a report to the console.
             // It takes one parameter: vendor, which represents the name of the vendor to filter by.
             // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
             // Transactions with a matching vendor name are printed to the console.
             // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
+        }
+        private static void customSearch(Scanner scanner){
+            System.out.println("Enter start date(yyyy-MM-dd): ");
+            String start = scanner.nextLine();
+            LocalDate startDate = LocalDate.parse(start, DATE_FORMATTER);
+            System.out.println("Enter end date(yyyy-MM-dd): ");
+            String end = scanner.nextLine();
+            LocalDate endDate = LocalDate.parse(end, DATE_FORMATTER);
+            System.out.println("Enter description, if you would like to search by description: ");
+            String descriptionInput = scanner.nextLine();
+            System.out.println("Enter vendor, if you would like to search by vendor: ");
+            String vendorInput = scanner.nextLine();
+            scanner.nextLine();//consume space
+            System.out.println("Enter amount, if you would like to search by amount: ");
+            double amountInput = scanner.nextDouble();
+
+            for (Transaction transaction : transactions) {
+                if (transaction.getDate().isAfter(startDate)){
+                    System.out.println(transaction);
+                } else if (transaction.getDate().is) {
+                    
+                }
+
+            }
+            
+
         }
 
 }
