@@ -371,13 +371,15 @@ public class FinancialTracker {
             double amountInput = scanner.nextDouble();
 
             for (Transaction transaction : transactions) {
-                if (transaction.getDate().isAfter(startDate)&& transaction.getDate().isBefore(endDate)){
+                if (!transaction.getDate().isBefore(startDate)&& !transaction.getDate().isAfter(endDate)){
                     System.out.println("Transactions within date entered are "+transaction);
                 } else if (transaction.getDescription().equalsIgnoreCase(descriptionInput)) {
                     System.out.println("Transactions matching your description are "+transaction);
-                } 
-
+                } else if (transaction.getVendor().equalsIgnoreCase(vendorInput)) {
+                    System.out.println("Transactions matching your vendor are "+transaction);
                 }
+
+            }
 
             }
             
