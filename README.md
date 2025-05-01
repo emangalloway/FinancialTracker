@@ -37,34 +37,25 @@ Follow these steps to get your application running within IntelliJ IDEA:
 - GitHub projects for creating and finishing tickets.
 
 ## Demo
+![FinancialTrackertransactions.csv2025-05-0116-55-45-ezgif.com-video-to-gif-converter.gif](FinancialTrackertransactions.csv2025-05-0116-55-45-ezgif.com-video-to-gif-converter.gif)
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
-
-![Application Screenshot](path/to/your/screenshot.png)
 
 ## Future Work
-
-Outline potential future enhancements or functionalities you might consider adding:
-
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- Additional feature to be developed will allow user to search report using whatever parameter they would like.
 
 ## Resources
 
 List resources such as tutorials, articles, or documentation that helped you during the project.
 
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+- https://ezgif.com/video-to-gif
+- https://www.geeksforgeeks.org/date-class-java-examples/
+- 
 
-## Team Members
-
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
 
 ## Thanks
 
 Express gratitude towards those who provided help, guidance, or resources:
 
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- Thank you to Raymond for continuous support and guidance.
+- A special thanks to all teammates for their help and problem-solving skills.
  
