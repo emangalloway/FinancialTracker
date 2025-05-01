@@ -87,6 +87,7 @@ public class FinancialTracker {
         // If any errors occur, an appropriate error message should be displayed.
     }
 
+
     private static void addDeposit(Scanner scanner) {
         //Create buffered writer
         try {
@@ -248,34 +249,29 @@ public class FinancialTracker {
                 case "1":
                     LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
                     filterTransactionsByDate(firstDayOfMonth, LocalDate.now());
-                    // Generate a report for all transactions within the current month,
-                    // including the date, time, description, vendor, and amount for each transaction.
+                    //This allows user to search by month to date
                     break;
                 case "2":
                     LocalDate previousMonth = LocalDate.now().minusMonths(1);
                     filterTransactionsByDate(previousMonth, LocalDate.now());
-                    // Generate a report for all transactions within the previous month,
-                    // including the date, time, description, vendor, and amount for each transaction.
+                    // This allows user to user the previous month searching feature
                     break;
                 case "3":
                     LocalDate YearToDate = LocalDate.now().withDayOfYear(1);
                     filterTransactionsByDate(YearToDate, LocalDate.now());
-                    // Generate a report for all transactions within the current year,
-                    // including the date, time, description, vendor, and amount for each transaction.
+                    // This allows user to use the Year to Date search feature
                     break;
                 case "4":
                     LocalDate PreviousYear = LocalDate.now().minusYears(1);
                     filterTransactionsByDate(PreviousYear, LocalDate.now());
-                    // Generate a report for all transactions within the previous year,
-                    // including the date, time, description, vendor, and amount for each transaction.
+                    // This allows user to search transaction from the previous year till now
                     break;
                 case "5":
                     Scanner myscanner = new Scanner(System.in);
                     System.out.println("Please enter vendor: ");
                     String vendorInput = myscanner.nextLine();
                     filterTransactionsByVendor(vendorInput);
-                    // Prompt the user to enter a vendor name, then generate a report for all transactions
-                    // with that vendor, including the date, time, description, vendor, and amount for each transaction.
+                    // This allows user to use the search by vendor option
                     break;
                 case "6":
                     customSearch(transactions,scanner);
@@ -287,74 +283,25 @@ public class FinancialTracker {
             }
         }
     }
-
-    /* private static void displayMonthToDate(){
-         LocalDate today = LocalDate.now();
-         LocalDate firstDayOfMonth = today.withDayOfMonth(1);
-         for (Transaction transaction : transactions) {
-             LocalDate transactionDate = transaction.getDate();
-             if (transactionDate.isAfter(firstDayOfMonth) && transactionDate.isBefore(today)){
-                 System.out.println(transaction);
-             }
-         }
-     }
-     private static void displayPreviousMonth(){
-         LocalDate today = LocalDate.now();
-         LocalDate firstDayOfPreviousMonth = today.minusMonths(1).withDayOfMonth(1);
-         LocalDate lastDayOfPreviousMonth = today.withDayOfMonth(1).minusDays(1);
-         for (Transaction transaction : transactions) {
-             LocalDate transactionDate = transaction.getDate();
-             if (transactionDate.isBefore(lastDayOfPreviousMonth) && transactionDate.isAfter(firstDayOfPreviousMonth)){
-                 System.out.println(transaction);
-             }
-         }
-     }
-     private static void displayYearToDate(){
-         LocalDate today = LocalDate.now();
-         LocalDate firstDayOfYear = today.withDayOfYear(1);
-         for (Transaction transaction : transactions) {
-             LocalDate transactionDate = transaction.getDate();
-             if (transactionDate.isAfter(firstDayOfYear)&& transactionDate.isBefore(today)){
-                 System.out.println(transaction);
-             }
-         }
-     }
-     private static void displayPreviousYear(){
-         LocalDate today = LocalDate.now();
-         LocalDate firstDayOfYear = today.withDayOfYear(1);
-         LocalDate firstDayOfPreviousYear = today.minusYears(1);
-         for (Transaction transaction : transactions) {
-             LocalDate transactionDate = transaction.getDate();
-             if (transactionDate.isAfter(firstDayOfPreviousYear) && transactionDate.isBefore(firstDayOfYear)){
-                 System.out.println(transaction);
-             }
-         }
-     }*/
+    //This Method allows user to use the search by start date and end date. for cases 1-4
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
         for (Transaction transaction : transactions) {
             if (!transaction.getDate().isBefore(startDate) && !transaction.getDate().isAfter(endDate)) {
-                System.out.println(transaction);//Search by date
+                System.out.println(transaction);
             }
-            // This method filters the transactions by date and prints a report to the console.
-            // It takes two parameters: startDate and endDate, which represent the range of dates to filter by.
-            // The method loops through the transactions list and checks each transaction's date against the date range.
-            // Transactions that fall within the date range are printed to the console.
-            // If no transactions fall within the date range, the method prints a message indicating that there are no results.
+
         }
     }
-
+        //This method allows user to search a transaction by vendor
         private static void filterTransactionsByVendor(String vendorName) {
             for (Transaction transaction : transactions) {
                 if (transaction.getVendor().equalsIgnoreCase(vendorName)) {
                     System.out.println(transaction);
                 }
             }
-            // This method filters the transactions by vendor and prints a report to the console.
-            // It takes one parameter: vendor, which represents the name of the vendor to filter by.
-            // The method loops through the transactions list and checks each transaction's vendor name against the specified vendor name.
-            // Transactions with a matching vendor name are printed to the console.
-            // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
+
         }
+        //This is muy attempt at creating a custom search method
         private static void customSearch(ArrayList<Transaction> transactions,Scanner scanner){
 
             try {
