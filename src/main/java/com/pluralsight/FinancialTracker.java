@@ -356,6 +356,7 @@ public class FinancialTracker {
             // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
         }
         private static void customSearch(Scanner scanner){
+            //Prompt user would the would like to search by
             System.out.println("Enter start date(yyyy-MM-dd): ");
             String start = scanner.nextLine();
             LocalDate startDate = LocalDate.parse(start, DATE_FORMATTER);
@@ -370,6 +371,7 @@ public class FinancialTracker {
             System.out.println("Enter amount, if you would like to search by amount: ");
             double amountInput = scanner.nextDouble();
 
+            //Create a for each statement that checks what user is searching by and print appropriate transactions
             for (Transaction transaction : transactions) {
                 if (!transaction.getDate().isBefore(startDate)&& !transaction.getDate().isAfter(endDate)){
                     System.out.println("Transactions within date entered are "+transaction);
@@ -377,9 +379,11 @@ public class FinancialTracker {
                     System.out.println("Transactions matching your description are "+transaction);
                 } else if (transaction.getVendor().equalsIgnoreCase(vendorInput)) {
                     System.out.println("Transactions matching your vendor are "+transaction);
+                } else if (transaction.getAmount()==amountInput) {
+                    System.out.println("Transactions equaling amount entered"+transaction);
+                } else{
+                    System.out.println("No transactions found");
                 }
-
-            }
 
             }
             
