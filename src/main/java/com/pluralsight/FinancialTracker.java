@@ -144,7 +144,7 @@ public class FinancialTracker {
             scanner.nextLine();//Consume
 
             //Change amount to negative
-            if (amountOfPayment <= 0) {
+            if (amountOfPayment >= 0) {
                 amountOfPayment *= -1;
             }
             //Create new transaction and add it to list
@@ -198,14 +198,12 @@ public class FinancialTracker {
     //This is the method that will be used in the menu to display all the transactions
     private static void displayLedger() {
         for (Transaction transaction : transactions) {
-            System.out.println(" ");
             System.out.println(transaction);
         }
     }
     //This is the method that allows user to only see deposits
     private static void displayDeposits() {
         for (Transaction transaction : transactions) {
-            System.out.println(" ");
             if (transaction.getAmount() > 0)
                 System.out.println(transaction);
         }
@@ -213,7 +211,6 @@ public class FinancialTracker {
     //This is the method that allows user to only see payments transaction in their account
     private static void displayPayments() {
         for (Transaction transaction : transactions) {
-            System.out.println(" ");
             if (transaction.getAmount() < 0)
                 System.out.println(transaction);
         }
@@ -262,8 +259,6 @@ public class FinancialTracker {
                     filterTransactionsByVendor(vendorInput);
                     // This allows user to use the search by vendor option
                     break;
-                case "6":
-                    customSearch(transactions,scanner);
                 case "0":
                     running = false;
                 default:
@@ -288,54 +283,6 @@ public class FinancialTracker {
                     System.out.println(transaction);
                 }
             }
-
-        }
-        //This is my attempt at creating a custom search method
-        private static void customSearch(ArrayList<Transaction> transactions,Scanner scanner){
-
-            try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(FILE_NAME));
-                //Create a scanner to receive user input
-                //Prompt user would the would like to search by
-                System.out.println("Enter start date(yyyy-MM-dd): ");
-                String start = scanner.nextLine();
-                LocalDate startDate = LocalDate.parse(start, DATE_FORMATTER);
-                System.out.println("Enter end date(yyyy-MM-dd): ");
-                String end = scanner.nextLine();
-                LocalDate endDate = LocalDate.parse(end, DATE_FORMATTER);
-                System.out.println("Enter description, if you would like to search by description: ");
-                String descriptionInput = scanner.nextLine();
-                System.out.println("Enter vendor, if you would like to search by vendor: ");
-                String vendorInput = scanner.nextLine();
-                System.out.println("Enter amount, if you would like to search by amount: ");
-                String amount = scanner.nextLine();
-                double amountInput = Double.parseDouble(amount);
-                scanner.nextLine();
-
-                //Create a for each statement that checks what user is searching by and print appropriate transactions
-                for (Transaction transaction : transactions) {
-                    boolean found = true;
-                    if (!transaction.getDate().isBefore(startDate)&& !transaction.getDate().isAfter(endDate)){
-                        System.out.println("Your dates have been saved.");
-                    }
-                    if (!transaction.getDescription().equalsIgnoreCase(descriptionInput)&& !descriptionInput.isEmpty()) {
-                        found = false;
-                    }
-                    if (!transaction.getVendor().equalsIgnoreCase(vendorInput)&& !vendorInput.isEmpty()) {
-                        found = false;
-                    }
-                    if (transaction.getAmount() != amountInput && amountInput.isEmpty) {
-                        found = false;
-                    }
-                    if (found){
-                        System.out.println("Transactions matching your search: "+transaction);
-                    }
-
-                }bufferedReader.close();
-            } catch (Exception e) {
-                System.out.println("An error has occurred");
-            }
-
 
         }
 
