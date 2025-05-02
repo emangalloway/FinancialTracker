@@ -48,6 +48,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 List resources such as tutorials, articles, or documentation that helped you during the project.
 
 - https://ezgif.com/video-to-gif
+- https://stackoverflow.com/questions/35301269/which-date-class-should-i-use-in-java-8
 - https://www.geeksforgeeks.org/date-class-java-examples/
 - Workbook 3 - 1 - Mastering Java Fundamentals v2.2Y
 - Workbook 3 - 3 - GitHub and Repository Management v6.1Y
