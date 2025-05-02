@@ -1,5 +1,5 @@
 # Project Title
-
+Finance Tracker
 ## Description of the Project
 This project allows user to see transactions, create payments, and deposits. It also has a feature to where the user can search transactions and filter search to receive certain transactions.
 
